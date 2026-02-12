@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flavor Flash - Place Order</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Flavor Flash</h1>
+    <nav>
+    <a href="../Experiment1_Index/index.html">Home</a>
+    <a href="../Experiment2_Menu/menu.html">Menu</a>
+    <a href="../Experiment3_Cart/cart.html">Cart</a>
+    <a href="../Experiment4_Wishlist/wishlist.html">Wishlist</a>
+    <a href="../Experiment5_Order/order.html">Order</a>
+    <a href="../Experiment6_Help/help.html">Help</a>
+    </nav>
+
+  
+</header>
+
+<section class="form-section">
+    <h2>Place Your Order</h2>
+
+    <form class="order-form">
+
+        <!-- Personal Details -->
+        <h3>Customer Details</h3>
+
+        <label>Full Name:</label>
+        <input type="text" placeholder="Enter your full name" required>
+
+        <label>Contact Number:</label>
+        <input type="tel" pattern="[0-9]{10}" placeholder="Enter 10 digit mobile number" required>
+
+        <label>Email Address:</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <!-- Address Section -->
+        <h3>Delivery Address</h3>
+
+        <label>Full Address:</label>
+        <textarea rows="3" placeholder="House No, Street Name, Area" required></textarea>
+
+        <label>Landmark:</label>
+        <input type="text" placeholder="Nearby landmark">
+
+        <label>City:</label>
+        <input type="text" placeholder="City" required>
+
+        <label>Pincode:</label>
+        <input type="text" pattern="[0-9]{6}" placeholder="6 digit pincode" required>
+
+        <!-- Payment Section -->
+        <h3>Payment Mode</h3>
+
+        <div class="payment-options">
+            <label><input type="radio" name="payment" required> Cash on Delivery</label>
+            <label><input type="radio" name="payment"> UPI</label>
+            <label><input type="radio" name="payment"> Credit/Debit Card</label>
+            <label><input type="radio" name="payment"> Net Banking</label>
+        </div>
+
+        <!-- Order Notes -->
+        <h3>Order Notes</h3>
+        <textarea rows="3" placeholder="Any special instructions?"></textarea>
+
+        <!-- Feedback -->
+        <h3>Feedback</h3>
+        <textarea rows="3" placeholder="How was your experience?"></textarea>
+
+        <br>
+
+        <button type="submit" class="btn">Confirm Order</button>
+        <button type="reset" class="btn cancel">Reset</button>
+
+    </form>
+</section>
+
+<footer>
+    <p>© 2026 Flavor Flash | Fresh Food Delivered Fast</p>
+</footer>
+
+</body>
+</html>
