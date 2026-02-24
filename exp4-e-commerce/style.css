@@ -1,0 +1,351 @@
+/* External CSS for Exercise 4 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FFFFFF;
+    color: #333333;
+    line-height: 1.6;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/* Header Styling - Green (#4CAF50) */
+header table:first-child {
+    background-color: #4CAF50;
+}
+
+header table:first-child td {
+    padding: 15px 20px;
+}
+
+header table:first-child font {
+    color: white;
+    font-weight: bold;
+    font-size: 36px;
+}
+
+/* Navigation Styling - Darker Green */
+header table:last-child {
+    background-color: #388E3C;
+}
+
+header table:last-child td {
+    padding: 12px;
+}
+
+header table:last-child a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    transition: all 0.3s;
+    display: inline-block;
+}
+
+header table:last-child a:hover {
+    background-color: #FFC107; /* Yellow */
+    color: #333;
+    border-radius: 5px;
+}
+
+/* Banner Section */
+table[cellpadding="0"] td {
+    position: relative;
+}
+
+table[cellpadding="0"] img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+    display: block;
+}
+
+table[cellpadding="0"] div {
+    background: rgba(0,0,0,0.6);
+    padding: 30px;
+    border-radius: 5px;
+}
+
+table[cellpadding="0"] div font {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+table[cellpadding="0"] div font:first-child {
+    font-size: 18px;
+    color: #FFC107; /* Yellow */
+}
+
+table[cellpadding="0"] div font[size="48px"] {
+    font-size: 48px;
+    font-weight: bold;
+    color: #4CAF50; /* Green */
+}
+
+table[cellpadding="0"] div font[size="24px"] {
+    font-size: 24px;
+    color: #FFC107; /* Yellow */
+}
+
+table[cellpadding="0"] div font[size="32px"] span {
+    color: #FFC107; /* Yellow */
+    font-weight: bold;
+}
+
+/* Features Section */
+table[cellpadding="30"] {
+    background-color: #F5F5F5;
+}
+
+table[cellpadding="30"] td[width="33%"] {
+    padding: 40px 20px;
+}
+
+table[cellpadding="30"] td[width="33%"] font {
+    color: #4CAF50; /* Green */
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Section Titles */
+font[size="6"] {
+    color: #4CAF50 !important; /* Green */
+    font-size: 36px !important;
+    font-weight: bold !important;
+}
+
+/* Menu Table Styling */
+table[border="1"] {
+    border: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+table[border="1"] th {
+    background: #4CAF50; /* Green */
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+}
+
+table[border="1"] td {
+    padding: 15px;
+    border: 1px solid #FFC107; /* Yellow */
+}
+
+table[border="1"] tr:hover {
+    background-color: #FFF9C4; /* Light Yellow */
+}
+
+/* Button Styling */
+button, input[type="submit"], input[type="reset"] {
+    background: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+    margin: 5px;
+}
+
+button:hover, input[type="submit"]:hover {
+    background: #FFC107; /* Yellow */
+    color: #333;
+    transform: translateY(-2px);
+}
+
+input[type="reset"] {
+    background: #757575;
+}
+
+input[type="reset"]:hover {
+    background: #9E9E9E;
+    color: white;
+}
+
+/* Cart Table Styling */
+table[cellpadding="30"] table[border="1"] {
+    width: 80%;
+    margin: 0 auto;
+}
+
+table[cellpadding="30"] table[border="1"] th {
+    background: #388E3C; /* Darker Green */
+    color: white;
+}
+
+table[cellpadding="30"] table[border="1"] tr:last-child {
+    background: #FFF9C4; /* Light Yellow */
+    font-weight: bold;
+}
+
+/* Wishlist Styling */
+table[border="0"] td {
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #FFC107; /* Yellow */
+}
+
+table[border="0"] td:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(76,175,80,0.2); /* Green shadow */
+}
+
+table[border="0"] h3 {
+    color: #4CAF50; /* Green */
+    margin-bottom: 10px;
+}
+
+table[border="0"] p:last-of-type {
+    color: #FFC107; /* Yellow */
+    font-size: 20px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* Form Styling */
+form table {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+input[type="text"], input[type="tel"], input[type="email"], textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #FFC107; /* Yellow */
+    border-radius: 5px;
+}
+
+input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, textarea:focus {
+    border-color: #4CAF50; /* Green */
+    outline: none;
+}
+
+/* Help Section Styling */
+table[cellpadding="30"] h3 {
+    color: #4CAF50; /* Green */
+    margin-bottom: 15px;
+    font-size: 22px;
+    border-bottom: 2px solid #FFC107; /* Yellow */
+    padding-bottom: 8px;
+}
+
+/* Footer Styling */
+footer {
+    background-color: #388E3C !important; /* Darker Green */
+    padding: 25px !important;
+}
+
+footer font {
+    color: white !important;
+    font-size: 16px;
+}
+
+/* Input Number Styling */
+input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 2px solid #FFC107; /* Yellow */
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type="number"]:focus {
+    border-color: #4CAF50; /* Green */
+    outline: none;
+}
+
+/* Radio Button Styling */
+input[type="radio"] {
+    accent-color: #4CAF50; /* Green */
+}
+
+/* Image Styling */
+img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+}
+
+img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(76,175,80,0.3); /* Green shadow */
+}
+
+/* Welcome Section */
+.welcome-section {
+    background: #F5F5F5;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.welcome-section h2 {
+    color: #4CAF50; /* Green */
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.welcome-section h3 {
+    color: #FFC107; /* Yellow */
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.welcome-section p {
+    color: #333;
+    font-size: 18px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table, tr, td {
+        display: block;
+        width: 100%;
+    }
+    
+    header table:last-child tr {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    header table:last-child td {
+        display: inline-block;
+        width: auto;
+        margin: 5px;
+    }
+}
+
+/* Explore Menu Link */
+a[href="#menu"] {
+    color: #FFC107; /* Yellow */
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 25px;
+    border: 2px solid #4CAF50; /* Green */
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+
+a[href="#menu"]:hover {
+    background: #4CAF50; /* Green */
+    color: white;
+}

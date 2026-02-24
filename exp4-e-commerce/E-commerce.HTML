@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flavor Flash - E-Commerce with CSS</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .offer-text {
+            background-color: #FFC107;
+            color: #333;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        /* Hide radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+        
+        /* Hide all sections by default */
+        .section {
+            display: none;
+        }
+        
+        /* Show section based on checked radio */
+        #home1:checked ~ .sections #home,
+        #menu1:checked ~ .sections #menu,
+        #cart1:checked ~ .sections #cart,
+        #wishlist1:checked ~ .sections #wishlist,
+        #order1:checked ~ .sections #order,
+        #help1:checked ~ .sections #help {
+            display: block;
+        }
+        
+        /* Navigation label styling */
+        .nav-label {
+            color: white;
+            text-decoration: none;
+            padding: 5px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .nav-label:hover {
+            background-color: #FFC107;
+            color: #333;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Radio buttons for navigation -->
+<input type="radio" name="section" id="home1" checked>
+<input type="radio" name="section" id="menu1">
+<input type="radio" name="section" id="cart1">
+<input type="radio" name="section" id="wishlist1">
+<input type="radio" name="section" id="order1">
+<input type="radio" name="section" id="help1">
+
+<!-- Header -->
+<header style="background-color: #4CAF50; padding: 10px;">
+    <table width="100%">
+        <tr>
+            <td width="20%">
+                <img src="../images/logo.png" width="60" height="60" style="border-radius: 50%; border: 2px solid #FFC107;">
+            </td>
+            <td width="60%" align="center">
+                <font style="color: white; font-size: 36px; font-weight: bold;">FLAVOR FLASH</font>
+            </td>
+            <td width="20%" align="right">
+                <font style="color: white; font-size: 18px;">Call: +91 9876543210</font>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- Navigation - Labels for radio buttons -->
+    <nav style="background-color: #388E3C; padding: 10px 0; margin-top: 10px;">
+        <table width="100%">
+            <tr align="center">
+                <td><label for="home1" class="nav-label">Home</label></td>
+                <td><label for="menu1" class="nav-label">Menu</label></td>
+                <td><label for="cart1" class="nav-label">Cart</label></td>
+                <td><label for="wishlist1" class="nav-label">Wishlist</label></td>
+                <td><label for="order1" class="nav-label">Order</label></td>
+                <td><label for="help1" class="nav-label">Help</label></td>
+            </tr>
+        </table>
+    </nav>
+</header>
+
+<!-- All sections container -->
+<div class="sections">
+
+<!-- HOME SECTION -->
+<div id="home" class="section">
+    <!-- Banner Section -->
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <img src="../images/banner.jpg" width="100%" height="450" style="display: block; object-fit: cover;">
+            </td>
+        </tr>
+    </table>
+
+    <!-- Features Section -->
+    <table width="100%" cellpadding="30" style="background-color: #F5F5F5;">
+        <tr align="center">
+            <td width="33%">
+                <font size="5" style="color: #4CAF50; font-weight: bold;">Fresh Food</font>
+            </td>
+            <td width="33%">
+                <font size="5" style="color: #4CAF50; font-weight: bold;">Fast Delivery</font>
+            </td>
+            <td width="33%">
+                <font size="5" style="color: #4CAF50; font-weight: bold;">Best Prices</font>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Offer Banner -->
+    <table width="100%" bgcolor="#FFC107" cellpadding="15">
+        <tr>
+            <td align="center">
+                <font color="#333" size="4" style="font-weight: bold;">💯 FLAT 20% OFF ON FIRST ORDER | FREE DELIVERY ABOVE ₹299</font>
+            </td>
+        </tr>
+    </table>
+
+
+
+    <!-- Why Choose Section -->
+    <table width="100%" bgcolor="#F5F5F5" cellpadding="50">
+        <tr>
+            <td align="center">
+                <font style="font-size: 36px; color: #4CAF50; font-weight: bold; display: block; margin-bottom: 20px;">Why Choose Flavor Flash?</font>
+                <font style="font-size: 18px; color: #333; max-width: 800px; display: block; line-height: 1.8;">
+                    We deliver fresh and hygienic food directly to your doorstep. 
+                    Choose from pizzas, burgers, shakes, desserts and much more.
+                </font>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- MENU SECTION -->
+<div id="menu" class="section">
+    <section style="background-color: white; padding: 30px 0;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; color: #4CAF50; font-weight: bold;">Our Menu</font>
+                    <br><br>
+                    
+                    <table width="90%" align="center" border="1" cellpadding="15" style="border-collapse: collapse; border: 2px solid #FFC107;">
+                        <tr style="background-color: #4CAF50;">
+                            <th style="color: white;">Item</th>
+                            <th style="color: white;">Description</th>
+                            <th style="color: white;">Price</th>
+                            <th style="color: white;">Action</th>
+                        </tr>
+                        <tr>
+                            <td><img src="../images/pizza.jpg" width="80" style="border-radius: 5px;"></td>
+                            <td><b>Margherita Pizza</b><br>Cheesy delight with tomatoes</td>
+                            <td>₹199</td>
+                            <td><button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Add to Cart</button></td>
+                        </tr>
+                        <tr style="background-color: #FFF9C4;">
+                            <td><img src="../images/burger.jpg" width="80" style="border-radius: 5px;"></td>
+                            <td><b>Classic Burger</b><br>Juicy patty with cheese</td>
+                            <td>₹99</td>
+                            <td><button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Add to Cart</button></td>
+                        </tr>
+                        <tr>
+                            <td><img src="../images/pasta.jpg" width="80" style="border-radius: 5px;"></td>
+                            <td><b>White Sauce Pasta</b><br>Creamy and delicious</td>
+                            <td>₹179</td>
+                            <td><button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Add to Cart</button></td>
+                        </tr>
+                        <tr style="background-color: #FFF9C4;">
+                            <td><img src="../images/fries.jpg" width="80" style="border-radius: 5px;"></td>
+                            <td><b>French Fries</b><br>Crispy and golden</td>
+                            <td>₹89</td>
+                            <td><button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Add to Cart</button></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- CART SECTION -->
+<div id="cart" class="section">
+    <section style="background-color: #F5F5F5; padding: 30px 0;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; color: #4CAF50; font-weight: bold;">Your Cart</font>
+                    <br><br>
+                    
+                    <table width="80%" align="center" border="1" cellpadding="15" style="border-collapse: collapse; border: 2px solid #FFC107;">
+                        <tr style="background-color: #388E3C;">
+                            <th style="color: white;">Item</th>
+                            <th style="color: white;">Price</th>
+                            <th style="color: white;">Quantity</th>
+                            <th style="color: white;">Total</th>
+                        </tr>
+                        <tr>
+                            <td>Pizza</td>
+                            <td>₹199</td>
+                            <td><input type="number" value="1" min="1" max="10" style="width: 60px; padding: 5px; border: 2px solid #FFC107;"></td>
+                            <td>₹199</td>
+                        </tr>
+                        <tr>
+                            <td>Burger</td>
+                            <td>₹99</td>
+                            <td><input type="number" value="2" min="1" max="10" style="width: 60px; padding: 5px; border: 2px solid #FFC107;"></td>
+                            <td>₹198</td>
+                        </tr>
+                        <tr>
+                            <td>Fries</td>
+                            <td>₹89</td>
+                            <td><input type="number" value="1" min="1" max="10" style="width: 60px; padding: 5px; border: 2px solid #FFC107;"></td>
+                            <td>₹89</td>
+                        </tr>
+                        <tr style="background-color: #FFF9C4;">
+                            <td colspan="3" align="right"><b>Total:</b></td>
+                            <td><b>₹486</b></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <button style="background-color: #4CAF50; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 5px; cursor: pointer;">Proceed to Checkout</button>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- WISHLIST SECTION -->
+<div id="wishlist" class="section">
+    <section style="background-color: white; padding: 30px 0;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; color: #4CAF50; font-weight: bold;">My Wishlist</font>
+                    <br><br>
+                    
+                    <table width="80%" align="center" cellpadding="20">
+                        <tr>
+                            <td bgcolor="white" width="45%" style="padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 2px solid #FFC107;">
+                                <h3 style="color: #4CAF50;">Margherita Pizza</h3>
+                                <p style="color: #666;">Cheesy delight</p>
+                                <p style="color: #FFC107; font-size: 20px; font-weight: bold;">₹199</p>
+                                <button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Move to Cart</button>
+                                <button style="background-color: #388E3C; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Remove</button>
+                            </td>
+                            <td width="10%"></td>
+                            <td bgcolor="white" width="45%" style="padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border: 2px solid #FFC107;">
+                                <h3 style="color: #4CAF50;">Classic Burger</h3>
+                                <p style="color: #666;">Juicy patty</p>
+                                <p style="color: #FFC107; font-size: 20px; font-weight: bold;">₹99</p>
+                                <button style="background-color: #4CAF50; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Move to Cart</button>
+                                <button style="background-color: #388E3C; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Remove</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- ORDER SECTION -->
+<div id="order" class="section">
+    <section style="background-color: #F5F5F5; padding: 30px 0;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; color: #4CAF50; font-weight: bold;">Place Your Order</font>
+                    <br><br>
+                    
+                    <form>
+                        <table width="60%" align="center" bgcolor="white" cellpadding="15" style="border-radius: 10px; border: 2px solid #FFC107;">
+                            <tr>
+                                <td>Full Name:</td>
+                                <td><input type="text" placeholder="Enter your name" size="30" style="padding: 8px; border: 2px solid #FFC107; border-radius: 5px; width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>Phone:</td>
+                                <td><input type="tel" placeholder="10 digit mobile" style="padding: 8px; border: 2px solid #FFC107; border-radius: 5px; width: 100%;"></td>
+                            </tr>
+                            <tr>
+                                <td>Address:</td>
+                                <td><textarea rows="3" cols="30" placeholder="Full address" style="padding: 8px; border: 2px solid #FFC107; border-radius: 5px; width: 100%;"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td>Payment:</td>
+                                <td>
+                                    <input type="radio" name="payment" style="accent-color: #4CAF50;"> Cash on Delivery<br>
+                                    <input type="radio" name="payment" style="accent-color: #4CAF50;"> UPI
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <input type="submit" value="Confirm Order" style="background-color: #4CAF50; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">
+                                    <input type="reset" value="Reset" style="background-color: #388E3C; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer;">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- HELP SECTION -->
+<div id="help" class="section">
+    <section style="background-color: white; padding: 30px 0;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; color: #4CAF50; font-weight: bold;">Help & Support</font>
+                    <br><br>
+                    
+                    <table width="80%" align="center" style="border: 2px solid #FFC107; border-radius: 10px; background-color: #F5F5F5;">
+                        <tr>
+                            <td valign="top" width="50%" style="padding: 20px;">
+                                <h3 style="color: #4CAF50; border-bottom: 2px solid #FFC107; padding-bottom: 10px;">Contact Us</h3>
+                                <p>Email: support@flavorflash.com<br>
+                                Phone: +91 98765 43210<br>
+                                Hours: 9 AM - 11 PM</p>
+                                
+                                <h3 style="color: #4CAF50; border-bottom: 2px solid #FFC107; padding-bottom: 10px; margin-top: 20px;">FAQ</h3>
+                                <p><b>Delivery time?</b> 30-45 minutes</p>
+                                <p><b>Cancellation?</b> Within 5 minutes</p>
+                            </td>
+                            <td valign="top" width="50%" style="padding: 20px;">
+                                <h3 style="color: #4CAF50; border-bottom: 2px solid #FFC107; padding-bottom: 10px;">Policies</h3>
+                                <p>✓ Free delivery above ₹299<br>
+                                ✓ 30 min delivery guarantee<br>
+                                ✓ Easy refund within 7 days</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+</div> <!-- End sections container -->
+
+<!-- Footer -->
+<footer style="background-color: #388E3C; padding: 20px; margin-top: 30px;">
+    <table width="100%">
+        <tr>
+            <td align="center">
+                <font color="white">© 2026 Flavor Flash | Fast & Fresh Delivery</font>
+            </td>
+        </tr>
+    </table>
+</footer>
+
+</body>
+</html>

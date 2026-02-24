@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saagar V N - Personal Website</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Internal CSS -->
+    <style>
+        .section-title {
+            color: #1a2b4c;
+            font-size: 36px;
+            border-bottom: 3px solid #1a2b4c;
+            display: inline-block;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        /* Hide radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+        
+        /* Hide all sections by default */
+        .section {
+            display: none;
+        }
+        
+        /* Show section based on checked radio */
+        #home1:checked ~ .sections #home-section,
+        #about1:checked ~ .sections #about-section,
+        #skills1:checked ~ .sections #skills-section,
+        #projects1:checked ~ .sections #projects-section,
+        #contact1:checked ~ .sections #contact-section {
+            display: block;
+        }
+        
+        /* Active navigation style */
+        #home1:checked ~ header nav a[for="home1"],
+        #about1:checked ~ header nav a[for="about1"],
+        #skills1:checked ~ header nav a[for="skills1"],
+        #projects1:checked ~ header nav a[for="projects1"],
+        #contact1:checked ~ header nav a[for="contact1"] {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Radio buttons for navigation -->
+<input type="radio" name="section" id="home1" checked>
+<input type="radio" name="section" id="about1">
+<input type="radio" name="section" id="skills1">
+<input type="radio" name="section" id="projects1">
+<input type="radio" name="section" id="contact1">
+
+<!-- Header with Inline CSS - Dark Blue -->
+<header style="background-color: #1a2b4c; color: white; padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <table width="100%">
+        <tr>
+            <td>
+                <font style="font-size: 24px; font-weight: bold;">SAAGAR V N</font><br>
+                <font style="font-size: 12px; opacity: 0.8;">COMPUTER SCIENCE</font>
+            </td>
+            <td align="right">
+                <nav>
+                    <label for="home1" style="color: white; text-decoration: none; margin: 0 10px; font-size: 13px; cursor: pointer; padding: 5px 10px;">HOME</label>
+                    <label for="about1" style="color: white; text-decoration: none; margin: 0 10px; font-size: 13px; cursor: pointer; padding: 5px 10px;">ABOUT</label>
+                    <label for="skills1" style="color: white; text-decoration: none; margin: 0 10px; font-size: 13px; cursor: pointer; padding: 5px 10px;">SKILLS</label>
+                    <label for="projects1" style="color: white; text-decoration: none; margin: 0 10px; font-size: 13px; cursor: pointer; padding: 5px 10px;">PROJECTS</label>
+                    <label for="contact1" style="color: white; text-decoration: none; margin: 0 10px; font-size: 13px; cursor: pointer; padding: 5px 10px;">CONTACT</label>
+                </nav>
+            </td>
+        </tr>
+    </table>
+</header>
+
+<!-- All sections container -->
+<div class="sections">
+
+<!-- Home Section -->
+<div id="home-section" class="section">
+    <section style="background-color: #f5f7fa; padding: 60px 40px;">
+        <table width="100%">
+            <tr>
+                <!-- Left side - Text -->
+                <td width="50%" valign="middle">
+                    <font style="font-size: 14px; color: #1a2b4c; display: block; margin-bottom: 10px; letter-spacing: 1px;">COMPUTER SCIENCE STUDENT</font>
+                    <font style="font-size: 42px; font-weight: bold; color: #1a2b4c; display: block; margin-bottom: 20px; line-height: 1.2;">Let's turn your ideas<br>into powerful code.</font>
+                    <font style="font-size: 16px; color: #4a5568; display: block; margin-bottom: 30px; line-height: 1.6;">Passionate developer ready to build innovative solutions for creative professionals, coaches, and change makers.</font>
+                    <label for="projects1"><button style="background-color: #1a2b4c; color: white; border: none; padding: 12px 35px; font-size: 14px; border-radius: 25px; cursor: pointer; font-weight: 500; letter-spacing: 0.5px; transition: all 0.3s;">EXPLORE MY WORK</button></label>
+                    <br><br>
+                    <font style="font-size: 12px; color: #999;">saagarvn.github.io</font>
+                </td>
+                <!-- Right side - Image -->
+                <td width="50%" align="center">
+                    <img src="../images/saagar.png" 
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/1a2b4c/ffffff?text=SAAGAR+V+N';"
+                         width="70%" 
+                         style="border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 5px solid white;">
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- About Section -->
+<div id="about-section" class="section">
+    <section style="padding: 60px 40px; background: white;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font class="section-title">About Me</font>
+                    <br><br>
+                    <table width="80%" align="center" style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+                        <tr>
+                            <td align="center" style="font-size: 16px; line-height: 1.8; color: #4a5568;">
+                                A motivated and enthusiastic B.Tech Computer Science Engineering student at Jain (Deemed-to-be) University. Possesses strong technical, communication, and teamwork skills, with hands-on experience in software development. Proven ability to learn quickly and contribute effectively in a collaborative environment.
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- Skills Section -->
+<div id="skills-section" class="section">
+    <section style="padding: 60px 40px; background-color: #f5f7fa;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; font-weight: bold; color: #1a2b4c; display: block; margin-bottom: 40px;">Technical Skills</font>
+                    
+                    <table width="90%" align="center" cellpadding="15">
+                        <tr>
+                            <td width="33%" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <font style="font-size: 20px; color: #1a2b4c; font-weight: bold; display: block; margin-bottom: 15px;">Programming</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Python</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Java</font>
+                            </td>
+                            <td width="33%" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <font style="font-size: 20px; color: #1a2b4c; font-weight: bold; display: block; margin-bottom: 15px;">Web Technologies</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">HTML, CSS</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">JavaScript</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">React JS, Node JS</font>
+                            </td>
+                            <td width="33%" style="background: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                                <font style="font-size: 20px; color: #1a2b4c; font-weight: bold; display: block; margin-bottom: 15px;">Tools & Others</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Linux, MATLAB</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Data Handling</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Communication</font>
+                                <font style="font-size: 15px; color: #4a5568; display: block; margin: 8px 0;">Teamwork</font>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <br><br>
+                    <font style="font-size: 20px; color: #1a2b4c; font-weight: bold; display: block; margin: 30px 0 15px;">Languages Known</font>
+                    <font style="font-size: 15px; color: #4a5568;">English | Hindi | Kannada | Tamil | Telugu</font>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- Projects Section -->
+<div id="projects-section" class="section">
+    <section style="padding: 60px 40px; background: white;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; font-weight: bold; color: #1a2b4c; display: block; margin-bottom: 40px;">My Projects</font>
+                    
+                    <table width="80%" align="center" cellpadding="20">
+                        <tr>
+                            <td width="45%" style="background: #f8f9fa; border-radius: 8px; padding: 20px;">
+                                <font style="font-size: 20px; color: #1a2b4c; font-weight: bold;">Buddy Bot (IoT)</font>
+                                <br><br>
+                                <font style="font-size: 14px; color: #4a5568; line-height: 1.6;">
+                                    Developed an IoT-based bot designed to assist with tasks like object recognition, remote control, and data sensing. Integrated hardware components with software logic.
+                                </font>
+                            </td>
+                            <td width="10%"></td>
+                            <td width="45%" style="background: #f8f9fa; border-radius: 8px; padding: 20px;">
+                                <font style="font-size: 20px; color: #1a2b4c; font-weight: bold;">Data Science Projects</font>
+                                <br><br>
+                                <font style="font-size: 14px; color: #4a5568; line-height: 1.6;">
+                                    Applied core Data Science principles to practical problems. Gained hands-on experience in data manipulation, analysis, and interpretation.
+                                </font>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+<!-- Contact Section -->
+<div id="contact-section" class="section">
+    <section style="padding: 60px 40px; background-color: #1a2b4c; color: white;">
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <font style="font-size: 36px; font-weight: bold; display: block; margin-bottom: 30px;">Contact Me</font>
+                    
+                    <table width="60%" align="center" style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 30px;">
+                        <tr>
+                            <td style="font-size: 15px; line-height: 2.2;">
+                                📧 Email: saagarvnjain@gmail.com<br>
+                                📱 Phone: +91 6362476630<br>
+                                📍 Location: Bangalore<br>
+                                🔗 LinkedIn: linkedin.com/in/saagar-v-n-11baa03a9<br>
+                                💻 GitHub: github.com/saagarvn-hub
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+
+</div> <!-- End sections container -->
+
+<!-- Footer -->
+<footer style="background-color: #0f1a2f; color: white; padding: 15px; text-align: center;">
+    <font style="font-size: 13px;">© 2026 Saagar V N | All Rights Reserved</font>
+</footer>
+
+</body>
+</html>

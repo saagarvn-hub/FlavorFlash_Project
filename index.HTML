@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Technology Lab Exercises - Saagar V N</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a2b4c 0%, #2c3e50 100%);
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #f0f0f0;
+            font-size: 18px;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px;
+        }
+        
+        .exercises {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            border-top: 5px solid #1a2b4c;
+            border-bottom: 5px solid #1a2b4c;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card h2 {
+            color: #1a2b4c;
+            margin-top: 0;
+            border-bottom: 2px solid #1a2b4c;
+            padding-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            text-decoration: none;
+            color: white;
+            background-color: #1a2b4c;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid #1a2b4c;
+        }
+        
+        .btn:hover {
+            background-color: white;
+            color: #1a2b4c;
+            transform: scale(1.02);
+        }
+        
+        .btn-html {
+            background-color: #e44d26;
+            border-color: #e44d26;
+        }
+        
+        .btn-html:hover {
+            background-color: white;
+            color: #e44d26;
+        }
+        
+        .btn-css {
+            background-color: #264de4;
+            border-color: #264de4;
+        }
+        
+        .btn-css:hover {
+            background-color: white;
+            color: #264de4;
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .student-info {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .student-info a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        
+        .student-info a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌐 Web Technology Lab Exercises</h1>
+    <div class="subtitle">
+        Saagar V N | B.Tech Computer Science | Jain University
+    </div>
+    
+    <div class="exercises">
+        <!-- Exercise 1 Card -->
+        <div class="card">
+            <h2>Exercise 1 <span class="badge">HTML Only</span></h2>
+            <p>Personal website with minimum 4 web pages using basic HTML tags. Includes Home, About, Skills, Projects, and Contact sections.</p>
+            <div class="links">
+                <a href="exp1-personalweb no css/personalweb.HTML" class="btn btn-html" target="_blank">🔗 View Personal Website (No CSS)</a>
+            </div>
+        </div>
+        
+        <!-- Exercise 2 Card -->
+        <div class="card">
+            <h2>Exercise 2 <span class="badge">HTML Only</span></h2>
+            <p>Static E-commerce website using Advanced HTML tags. Features Home, Menu, Cart, Wishlist, Order, and Help pages.</p>
+            <div class="links">
+                <a href="exp2-e-commerce no css/e-commerce.HTML" class="btn btn-html" target="_blank">🛒 View E-Commerce (No CSS)</a>
+            </div>
+        </div>
+        
+        <!-- Exercise 3 Card -->
+        <div class="card">
+            <h2>Exercise 3 <span class="badge">With CSS</span></h2>
+            <p>Enhanced personal website with Inline, Internal, and External CSS. Modern design with dark blue theme and circular profile image.</p>
+            <div class="links">
+                <a href="exp3-personalweb/Personalweb.HTML" class="btn btn-css" target="_blank">🎨 View Personal Website (With CSS)</a>
+            </div>
+        </div>
+        
+        <!-- Exercise 4 Card -->
+        <div class="card">
+            <h2>Exercise 4 <span class="badge">With CSS</span></h2>
+            <p>Enhanced E-commerce website with Inline, Internal, and External CSS. Beautiful green and yellow theme with interactive elements.</p>
+            <div class="links">
+                <a href="exp4-e-commerce/E-commerce.HTML" class="btn btn-css" target="_blank">🎨 View E-Commerce (With CSS)</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="student-info">
+        📧 <a href="mailto:saagarvnjain@gmail.com">saagarvnjain@gmail.com</a> | 
+        📱 +91 6362476630 | 
+        🔗 <a href="https://linkedin.com/in/saagar-v-n-11baa03a9" target="_blank">LinkedIn</a> | 
+        💻 <a href="https://github.com/saagarvn-hub" target="_blank">GitHub</a>
+        <br><br>
+        <font size="2">© 2026 All Rights Reserved</font>
+    </div>
+</div>
+
+</body>
+</html>
