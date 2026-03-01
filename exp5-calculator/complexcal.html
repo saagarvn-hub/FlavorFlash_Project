@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>mobile calculator · clone</title>
+    <style>
+        /* reset & base – exactly like mobile app */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Roboto, sans-serif;
+        }
+
+        body {
+            background: #000000; /* pure black background like many mobile calculators */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        /* main card – white/dark combo (common style: light keypad, dark display) */
+        .mobile-calc {
+            width: 100%;
+            max-width: 400px;
+            background: #1c1c1c;            /* dark grey like iPhone calculator */
+            border-radius: 48px;
+            padding: 20px 15px 25px 15px;
+            box-shadow: 0 30px 40px rgba(0,0,0,0.8), 0 0 0 1px #3a3a3a inset;
+        }
+
+        /* display section – black background, white text, big numbers */
+        .display-area {
+            background: #000000;
+            border-radius: 36px;
+            padding: 25px 22px 18px 22px;
+            margin-bottom: 18px;
+            border: 1px solid #3d3d3d;
+            box-shadow: inset 0 4px 10px #0a0a0a;
+        }
+
+        #calcDisplay {
+            width: 100%;
+            background: transparent;
+            border: none;
+            font-size: 4.2rem;
+            font-weight: 300;
+            font-family: 'SF Pro Display', -apple-system, 'Helvetica Neue', monospace;
+            color: white;
+            text-align: right;
+            outline: none;
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+
+        /* memory/history line (optional, but many apps have it) */
+        .memory-line {
+            color: #a0a0a0;
+            font-size: 1rem;
+            text-align: right;
+            min-height: 24px;
+            border-top: 1px solid #2e2e2e;
+            margin-top: 12px;
+            padding-top: 6px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        /* button grid – standard 4 columns, like every mobile calculator */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        /* base button – exactly mobile style: circular, large, no borders */
+        .btn {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            border: none;
+            border-radius: 50%;               /* perfect circle */
+            font-size: 2rem;
+            font-weight: 500;
+            background: #333333;                /* default dark number key */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5), 0 0 0 1px #4a4a4a inset;
+            cursor: pointer;
+            transition: all 0.08s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-touch-callout: none;
+        }
+
+        .btn:active {
+            background: #737373;                /* feedback tap */
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px black;
+        }
+
+        /* operator buttons – orange (standard mobile) */
+        .btn-operator {
+            background: #ff9f0a;                /* vivid orange */
+            color: white;
+            font-size: 2.4rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6), 0 0 0 1px #d67f00 inset;
+        }
+        .btn-operator:active {
+            background: #ffb84d;
+        }
+
+        /* utility buttons: AC, +/-, % – light grey (like iOS) */
+        .btn-utility {
+            background: #a5a5a5;
+            color: #000000;
+            font-weight: 600;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5), 0 0 0 1px #bdbdbd inset;
+        }
+        .btn-utility:active {
+            background: #c6c6c6;
+        }
+
+        /* zero button – wide, but we handle by span */
+        .btn-zero {
+            aspect-ratio: auto;
+            grid-column: span 2;
+            border-radius: 60px;                /* pill shape for zero */
+            padding: 0 20px;
+            justify-content: flex-start;
+            padding-left: 30px;
+        }
+
+        /* decimal and equals keep same style */
+        .btn-equals {
+            background: #ff9f0a;
+            font-size: 2.6rem;
+            font-weight: 600;
+        }
+
+        /* all buttons text align */
+        .btn span {
+            display: block;
+            line-height: 1;
+        }
+
+        /* tiny footer just for authenticity */
+        .footer-note {
+            color: #4f4f4f;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* no outlines */
+        .btn:focus, .btn:focus-visible {
+            outline: none;
+        }
+
+        /* for the +/- sign we use a special character */
+        [data-key="+-"] {
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-calc">
+        <!-- display -->
+        <div class="display-area">
+            <input type="text" id="calcDisplay" readonly value="0">
+            <div class="memory-line" id="memIndicator"></div>
+        </div>
+
+        <!-- button grid – EXACT layout of a standard mobile calculator:
+             AC, +/–, %, ÷
+             7, 8, 9, ×
+             4, 5, 6, –
+             1, 2, 3, +
+             0, ., =   (zero spans two columns)
+        -->
+        <div class="button-grid">
+            <!-- row 1: AC, +/–, %, ÷ -->
+            <button class="btn btn-utility" data-key="AC">AC</button>
+            <button class="btn btn-utility" data-key="+-">+/−</button>
+            <button class="btn btn-utility" data-key="%">%</button>
+            <button class="btn btn-operator" data-key="/">÷</button>
+
+            <!-- row 2: 7,8,9,× -->
+            <button class="btn" data-key="7">7</button>
+            <button class="btn" data-key="8">8</button>
+            <button class="btn" data-key="9">9</button>
+            <button class="btn btn-operator" data-key="*">×</button>
+
+            <!-- row 3: 4,5,6,– -->
+            <button class="btn" data-key="4">4</button>
+            <button class="btn" data-key="5">5</button>
+            <button class="btn" data-key="6">6</button>
+            <button class="btn btn-operator" data-key="-">−</button>
+
+            <!-- row 4: 1,2,3,+ -->
+            <button class="btn" data-key="1">1</button>
+            <button class="btn" data-key="2">2</button>
+            <button class="btn" data-key="3">3</button>
+            <button class="btn btn-operator" data-key="+">+</button>
+
+            <!-- row 5: 0 (span2), ., = -->
+            <button class="btn btn-zero" data-key="0">0</button>
+            <button class="btn" data-key=".">.</button>
+            <button class="btn btn-operator btn-equals" data-key="=">=</button>
+        </div>
+        <div class="footer-note">mobile calculator · all operations</div>
+    </div>
+
+    <script>
+        (function() {
+            // ----- state (full mobile‑grade) -----
+            const display = document.getElementById('calcDisplay');
+            const memLine = document.getElementById('memIndicator');
+
+            // all possible states
+            let currentOperand = '0';       // what's on screen
+            let previousOperand = null;      // first operand
+            let operation = null;            // +, -, *, /
+            let resetScreen = false;          // after operator or equals, start new number
+            let lastEquals = false;           // for chaining
+
+            // update display
+            function updateDisplay() {
+                display.value = currentOperand;
+            }
+
+            // helper to get number
+            function getCurrentNumber() {
+                return parseFloat(currentOperand) || 0;
+            }
+
+            // ----- AC: clear everything -----
+            function allClear() {
+                currentOperand = '0';
+                previousOperand = null;
+                operation = null;
+                resetScreen = false;
+                lastEquals = false;
+                memLine.innerText = '';
+                updateDisplay();
+            }
+
+            // ----- number / digit input -----
+            function inputDigit(digit) {
+                if (resetScreen) {
+                    currentOperand = digit;
+                    resetScreen = false;
+                    lastEquals = false;
+                } else {
+                    if (digit === '0' && currentOperand === '0') return; // avoid multiple zeros
+                    if (currentOperand === '0' && digit !== '.') {
+                        currentOperand = digit;
+                    } else {
+                        currentOperand += digit;
+                    }
+                }
+                updateDisplay();
+            }
+
+            // ----- decimal point -----
+            function inputDecimal() {
+                if (resetScreen) {
+                    currentOperand = '0.';
+                    resetScreen = false;
+                    lastEquals = false;
+                } else if (!currentOperand.includes('.')) {
+                    currentOperand += '.';
+                }
+                updateDisplay();
+            }
+
+            // ----- sign change (±) -----
+            function toggleSign() {
+                if (currentOperand !== '0') {
+                    let val = parseFloat(currentOperand);
+                    val = -val;
+                    currentOperand = val.toString();
+                    updateDisplay();
+                }
+            }
+
+            // ----- percentage (%) -----
+            function percentage() {
+                let val = parseFloat(currentOperand);
+                if (!isNaN(val)) {
+                    // if there's a pending operation, treat as percentage of previous operand (mobile behaviour)
+                    if (previousOperand !== null && operation) {
+                        let base = previousOperand;
+                        val = (base * val) / 100;
+                    } else {
+                        val = val / 100;
+                    }
+                    currentOperand = val.toString();
+                    updateDisplay();
+                }
+            }
+
+            // ----- operator handler -----
+            function setOperator(op) {
+                // if there's already a pending operation and we are not resetting, compute previous first
+                if (operation !== null && !resetScreen && previousOperand !== null) {
+                    calculate();
+                }
+                previousOperand = getCurrentNumber();
+                operation = op;
+                resetScreen = true;            // next digit starts fresh
+                lastEquals = false;
+                memLine.innerText = `${previousOperand} ${op}`;
+            }
+
+            // ----- calculation (equals and internal) -----
+            function calculate() {
+                if (operation === null || previousOperand === null) {
+                    // if only equals pressed without operation, do nothing
+                    return;
+                }
+
+                let second = getCurrentNumber();
+                let first = previousOperand;
+                let result;
+
+                switch (operation) {
+                    case '+': result = first + second; break;
+                    case '-': result = first - second; break;
+                    case '*': result = first * second; break;
+                    case '/':
+                        if (second === 0) {
+                            currentOperand = 'Error';
+                            updateDisplay();
+                            allClear(); // reset after error
+                            return;
+                        }
+                        result = first / second;
+                        break;
+                    default: return;
+                }
+
+                // avoid floating point uglyness
+                result = Math.round(result * 1e12) / 1e12;
+                currentOperand = result.toString();
+                previousOperand = result;          // for chaining: after equals, this becomes new left operand
+                operation = null;                   // operation cleared, but we keep previous for possible next op
+                resetScreen = true;
+                lastEquals = true;
+                memLine.innerText = '';
+                updateDisplay();
+            }
+
+            // ----- special AC behaviour: if not zero, turn to AC / C (like mobile) but we just use AC always. optional: change to C if needed but fine.
+            // ----- main action router -----
+            function handleAction(key) {
+                // ignore if empty key
+                if (!key) return;
+
+                // digits 0-9
+                if (/^[0-9]$/.test(key)) {
+                    inputDigit(key);
+                }
+                else if (key === '.') {
+                    inputDecimal();
+                }
+                else if (key === '+-') {
+                    toggleSign();
+                }
+                else if (key === '%') {
+                    percentage();
+                }
+                else if (key === 'AC') {
+                    allClear();
+                }
+                else if (key === '/' || key === '*' || key === '-' || key === '+') {
+                    setOperator(key);
+                }
+                else if (key === '=') {
+                    calculate();
+                    // after equals, keep previous operand for chaining, but operation null
+                }
+            }
+
+            // attach listeners to all buttons
+            document.querySelectorAll('[data-key]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const key = e.currentTarget.dataset.key;
+                    handleAction(key);
+                });
+            });
+
+            // keyboard support (mobile users may have keyboard, but we follow mobile style)
+            window.addEventListener('keydown', (e) => {
+                const key = e.key;
+                e.preventDefault(); // avoid page scroll on space etc
+
+                if (/^[0-9]$/.test(key)) handleAction(key);
+                else if (key === '.') handleAction('.');
+                else if (key === '+' || key === '-' || key === '*' || key === '/') handleAction(key);
+                else if (key === 'Enter' || key === '=') handleAction('=');
+                else if (key === 'Escape' || key === 'c' || key === 'C') handleAction('AC');
+                else if (key === '%') handleAction('%');
+                else if (key === '±' || (key === '`' && e.shiftKey)) handleAction('+-'); // shift+` gives ± on some layouts, but we just ignore
+            });
+
+            // initial state
+            allClear();
+
+            // also handle long press? not needed
+        })();
+    </script>
+</body>
+</html>
