@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProFlow · registration & login</title>
+    <!-- Font Awesome 6 (free) for subtle icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #e6ecf3 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        /* main card – clean, airy, professional */
+        .dashboard {
+            max-width: 1320px;
+            width: 100%;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(3px);
+            border-radius: 2.5rem;
+            padding: 2rem 2rem 2.5rem;
+            box-shadow: 0 20px 40px -12px rgba(0,20,40,0.25),
+                        0 8px 24px -6px rgba(0,32,64,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        /* two column layout for forms + side panel */
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* left column: register & login tabs + full form */
+        .left-panel {
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px -8px rgba(0,20,40,0.15);
+            overflow: hidden;
+            padding: 1.8rem 2rem 2.2rem;
+            border: 1px solid rgba(230, 240, 255, 0.7);
+        }
+
+        /* tab style */
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #eef2f6;
+            padding-bottom: 0.75rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 560;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            color: #5b6f82;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: -0.01em;
+        }
+
+        .tab-btn i {
+            margin-right: 8px;
+            font-size: 1rem;
+            color: #7b8b9f;
+        }
+
+        .tab-btn.active {
+            background: #1e2f41;
+            color: white;
+        }
+        .tab-btn.active i {
+            color: white;
+        }
+
+        /* form sections – register is default visible */
+        .form-section {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+
+        .form-section.active-section {
+            display: block;
+        }
+
+        @keyframes fade { from { opacity:0.3; } to { opacity:1; } }
+
+        /* form grid */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .field {
+            margin-bottom: 0.75rem;
+        }
+
+        .field label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: #2d4054;
+            margin-bottom: 0.2rem;
+        }
+
+        .field label i {
+            color: #567594;
+            font-size: 0.8rem;
+            width: 18px;
+        }
+
+        .required-star {
+            color: #c83e4d;
+            margin-left: 4px;
+            font-size: 1.1rem;
+        }
+
+        input, select, .checkbox-group {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: #f8fafd;
+            border: 1.5px solid #e2e9f2;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            color: #1f2c38;
+            transition: 0.15s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b6e9c;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(52, 110, 150, 0.1);
+        }
+
+        .half-select {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* age/gender/interest groups */
+        .option-group {
+            background: #f8fafd;
+            border-radius: 18px;
+            padding: 1rem 1.2rem;
+            border: 1.5px solid #e2e9f2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 1.8rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+
+        .option-item input[type="radio"], 
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2b5f8a;
+        }
+
+        .interests-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+            background: #f8fafd;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            border: 1.5px solid #e2e9f2;
+        }
+
+        /* register button */
+        .btn-primary {
+            background: #1d3f5c;
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.9rem 1.8rem;
+            border-radius: 40px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.15s;
+            margin: 1.5rem 0 1rem;
+            border: 1px solid #154154;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary:hover {
+            background: #154154;
+            transform: scale(1.01);
+            box-shadow: 0 8px 16px -8px #1d3f5c70;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1.5px solid #cddae9;
+            color: #1f3b4e;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .btn-secondary i { color: #54738f; }
+
+        .btn-secondary:hover {
+            background: #ecf3fa;
+            border-color: #90aeca;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .action-links a {
+            color: #215a7c;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #98b9d6;
+        }
+
+        /* right panel – saved data card */
+        .saved-panel {
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px -8px rgba(0,20,40,0.15);
+            padding: 1.8rem 1.8rem 2rem;
+            border: 1px solid rgba(230, 240, 255, 0.7);
+        }
+
+        .saved-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .saved-header i {
+            font-size: 1.8rem;
+            color: #3d6079;
+            background: #e9f0f8;
+            padding: 0.5rem;
+            border-radius: 18px;
+        }
+
+        .saved-header h3 {
+            font-weight: 600;
+            color: #1b364b;
+            font-size: 1.3rem;
+        }
+
+        .data-message {
+            background: #f5f9ff;
+            padding: 2rem 1.2rem;
+            border-radius: 1.8rem;
+            text-align: center;
+            color: #617e9a;
+            font-weight: 400;
+            border: 1px dashed #b9d0e7;
+            margin-bottom: 1.8rem;
+        }
+
+        .data-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: stretch;
+        }
+
+        .data-actions button {
+            flex: 1;
+            background: white;
+            border: 1.5px solid #cbdbe9;
+            border-radius: 40px;
+            padding: 0.7rem 0;
+            font-weight: 550;
+            color: #1d3c57;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .data-actions button:hover {
+            background: #e5eefb;
+        }
+
+        hr {
+            margin: 1.8rem 0 1.5rem;
+            border: 1px solid #e3eef9;
+        }
+
+        /* login compact inside left panel */
+        .login-fields {
+            margin: 1rem 0 0.5rem;
+        }
+
+        .login-extra {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0 2rem;
+        }
+
+        .small-note {
+            color: #577594;
+            font-size: 0.9rem;
+        }
+
+        /* responsive */
+        @media (max-width: 850px) {
+            .grid-3col { grid-template-columns: 1fr; }
+        }
+
+        .birth-group {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .birth-group input {
+            text-align: center;
+        }
+        .birth-group span { color: #4f708b; font-weight: 500; }
+
+        .divider-text {
+            font-size: 0.8rem;
+            color: #7f98b0;
+            margin: 0.5rem 0 0.2rem;
+        }
+
+        .no-data-link {
+            background: transparent;
+            border: none;
+            color: #24648b;
+            text-decoration: underline dotted;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- main grid: left (tabs+forms) + right (saved data) -->
+        <div class="grid-3col">
+            <!-- LEFT PANEL: registration & login -->
+            <div class="left-panel">
+                <!-- tab bar exactly as reference: Register / Login -->
+                <div class="tab-bar">
+                    <button class="tab-btn active" id="tabRegister"><i class="fas fa-pen"></i> Register</button>
+                    <button class="tab-btn" id="tabLogin"><i class="fas fa-key"></i> Login</button>
+                </div>
+
+                <!-- REGISTER section (active by default) -->
+                <div id="registerSection" class="form-section active-section">
+                    <div class="form-row">
+                        <!-- Full name * -->
+                        <div class="field full-width">
+                            <label><i class="fas fa-user"></i> Full Name <span class="required-star">*</span></label>
+                            <input type="text" placeholder="Enter your full name" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field">
+                            <label><i class="fas fa-envelope"></i> Email <span class="required-star">*</span></label>
+                            <input type="email" placeholder="Enter your email" value="">
+                        </div>
+                        <div class="field">
+                            <label><i class="fas fa-lock"></i> Password <span class="required-star">*</span></label>
+                            <input type="password" placeholder="Enter password" value="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="field">
+                            <label><i class="fas fa-check-circle"></i> Confirm Password <span class="required-star">*</span></label>
+                            <input type="password" placeholder="Confirm password" value="">
+                        </div>
+                        <div class="field">
+                            <label><i class="fas fa-calendar"></i> Date of Birth <span class="required-star">*</span></label>
+                            <div class="birth-group">
+                                <input type="text" placeholder="dd" maxlength="2" size="2" value="">
+                                <span>–</span>
+                                <input type="text" placeholder="mm" maxlength="2" size="2" value="">
+                                <span>–</span>
+                                <input type="text" placeholder="yyyy" maxlength="4" size="4" value="">
+                            </div>
+                            <div class="divider-text">dd - mm - yyyy</div>
+                        </div>
+                    </div>
+
+                    <!-- Age group (exactly as screens) -->
+                    <div class="field">
+                        <label><i class="fas fa-users"></i> Age Group *</label>
+                        <div class="option-group">
+                            <span class="option-item"><input type="radio" name="ageGroup" value="18-25"> 18-25</span>
+                            <span class="option-item"><input type="radio" name="ageGroup" value="26-35"> 26-35</span>
+                            <span class="option-item"><input type="radio" name="ageGroup" value="36-45"> 36-45</span>
+                            <span class="option-item"><input type="radio" name="ageGroup" value="46-60"> 46-60</span>
+                            <span class="option-item"><input type="radio" name="ageGroup" value="60+"> 60+</span>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="field">
+                        <label><i class="fas fa-venus-mars"></i> Gender *</label>
+                        <div class="option-group">
+                            <span class="option-item"><input type="radio" name="gender" value="Male"> Male</span>
+                            <span class="option-item"><input type="radio" name="gender" value="Female"> Female</span>
+                            <span class="option-item"><input type="radio" name="gender" value="Other"> Other</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field">
+                            <label><i class="fas fa-phone-alt"></i> Phone Number</label>
+                            <input type="tel" placeholder="Enter your phone number">
+                        </div>
+                        <div class="field">
+                            <label><i class="fas fa-map-pin"></i> Address</label>
+                            <input type="text" placeholder="Enter your full address">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field">
+                            <label><i class="fas fa-city"></i> City</label>
+                            <input type="text" placeholder="Enter your city">
+                        </div>
+                        <div class="field">
+                            <label><i class="fas fa-map"></i> State</label>
+                            <select>
+                                <option>Select State</option>
+                                <option>California</option><option>Texas</option><option>New York</option><option>Florida</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="field">
+                            <label><i class="fas fa-mail-bulk"></i> Pincode</label>
+                            <input type="text" placeholder="Enter pincode">
+                        </div>
+                        <div class="field">
+                            <label><i class="fas fa-graduation-cap"></i> Education</label>
+                            <select>
+                                <option>Select Education</option>
+                                <option>High School</option><option>Bachelor's</option><option>Master's</option><option>PhD</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Skills/Interests with checkboxes (exact list) -->
+                    <div class="field">
+                        <label><i class="fas fa-heart"></i> Skills / Interests</label>
+                        <div class="interests-grid">
+                            <span class="option-item"><input type="checkbox" value="Coding"> Coding</span>
+                            <span class="option-item"><input type="checkbox" value="Sports"> Sports</span>
+                            <span class="option-item"><input type="checkbox" value="Travel"> Travel</span>
+                            <span class="option-item"><input type="checkbox" value="Reading"> Reading</span>
+                            <span class="option-item"><input type="checkbox" value="Music"> Music</span>
+                            <span class="option-item"><input type="checkbox" value="Art"> Art</span>
+                        </div>
+                    </div>
+
+                    <!-- Register now button -->
+                    <button class="btn-primary" id="fakeRegisterBtn"><i class="fas fa-user-plus"></i> Register Now</button>
+
+                    <div class="action-links">
+                        <span><i class="far fa-question-circle"></i> Already have an account? <a href="#" id="switchToLoginLink">Login here</a></span>
+                        <span></span>
+                    </div>
+                </div>
+
+                <!-- LOGIN section (hidden initially) -->
+                <div id="loginSection" class="form-section">
+                    <div class="field full-width">
+                        <label><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" placeholder="Enter your email">
+                    </div>
+                    <div class="field full-width">
+                        <label><i class="fas fa-lock"></i> Password *</label>
+                        <input type="password" placeholder="Enter password">
+                    </div>
+                    <button class="btn-primary" style="margin-top:1rem;" id="fakeLoginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <div class="login-extra">
+                        <span class="small-note"><i class="far fa-user"></i> Don't have an account? <a href="#" id="switchToRegisterLink">Register here</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Previously saved data (exactly from images) -->
+            <div class="saved-panel">
+                <div class="saved-header">
+                    <i class="fas fa-database"></i>
+                    <h3>Previously Saved Data</h3>
+                </div>
+                <div class="data-message" id="savedDataMsg">
+                    <i class="far fa-folder-open" style="font-size:2rem; opacity:0.5; margin-bottom:0.5rem; display:block;"></i>
+                    No saved data yet. Register first!
+                </div>
+                <!-- data actions as shown in screenshots -->
+                <div class="data-actions">
+                    <button id="usePrevDataBtn"><i class="fas fa-history"></i> Use Previous Data</button>
+                    <button id="copyAllDataBtn"><i class="fas fa-copy"></i> Copy All Data</button>
+                </div>
+                <hr>
+                <!-- subtle link exactly as "Previously Saved Data  No saved data yet. Register first!" style -->
+                <div style="display: flex; gap: 12px; font-size:0.9rem; justify-content: center; color:#50768f;">
+                    <i class="far fa-save"></i>
+                    <span>No saved data yet. <button class="no-data-link" id="registerFirstLink"><u>Register first!</u></button></span>
+                </div>
+                <!-- Extra "Copy All Data" line from last screenshot, but already above -->
+            </div>
+        </div>
+        <!-- small footer note (blends) -->
+        <div style="margin-top: 1.2rem; text-align: right; color: #547e9c; opacity:0.7; font-size:0.85rem;">
+            <i class="fas fa-mouse-pointer"></i> unified form — professional color grading
+        </div>
+    </div>
+
+    <!-- simple JavaScript: tab switching, interactive hints & dummy actions (no actual storage) -->
+    <script>
+        (function() {
+            // Tabs
+            const tabRegister = document.getElementById('tabRegister');
+            const tabLogin = document.getElementById('tabLogin');
+            const registerSection = document.getElementById('registerSection');
+            const loginSection = document.getElementById('loginSection');
+            const switchToLogin = document.getElementById('switchToLoginLink');
+            const switchToRegister = document.getElementById('switchToRegisterLink');
+            const registerFirstLink = document.getElementById('registerFirstLink');
+
+            function setActiveTab(isRegister) {
+                if (isRegister) {
+                    tabRegister.classList.add('active');
+                    tabLogin.classList.remove('active');
+                    registerSection.classList.add('active-section');
+                    loginSection.classList.remove('active-section');
+                } else {
+                    tabLogin.classList.add('active');
+                    tabRegister.classList.remove('active');
+                    loginSection.classList.add('active-section');
+                    registerSection.classList.remove('active-section');
+                }
+            }
+
+            tabRegister.addEventListener('click', (e) => { e.preventDefault(); setActiveTab(true); });
+            tabLogin.addEventListener('click', (e) => { e.preventDefault(); setActiveTab(false); });
+            if (switchToLogin) switchToLogin.addEventListener('click', (e) => { e.preventDefault(); setActiveTab(false); });
+            if (switchToRegister) switchToRegister.addEventListener('click', (e) => { e.preventDefault(); setActiveTab(true); });
+            if (registerFirstLink) registerFirstLink.addEventListener('click', (e) => { e.preventDefault(); setActiveTab(true); });
+
+            // Dummy functionality for "Use Previous Data" / "Copy All Data" (just like UI in screenshots)
+            const usePrevBtn = document.getElementById('usePrevDataBtn');
+            const copyBtn = document.getElementById('copyAllDataBtn');
+            const savedMsg = document.getElementById('savedDataMsg');
+
+            usePrevBtn.addEventListener('click', () => {
+                savedMsg.innerHTML = `<i class="fas fa-check-circle" style="font-size:2rem; color:#2a7856; margin-bottom:0.5rem; display:block;"></i>Demo: would fill form (no actual storage)`;
+            });
+
+            copyBtn.addEventListener('click', () => {
+                savedMsg.innerHTML = `<i class="fas fa-check-circle" style="font-size:2rem; color:#2a7856; margin-bottom:0.5rem; display:block;"></i>Demo: "copied" (simulated)`;
+            });
+
+            // Register now button / login button simulate little feedback without affecting saved data
+            document.getElementById('fakeRegisterBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                savedMsg.innerHTML = `<i class="fas fa-info-circle" style="font-size:2rem; color:#3b6e9c; margin-bottom:0.5rem; display:block;"></i>Register demo — no data saved permanently.`;
+            });
+
+            document.getElementById('fakeLoginBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                savedMsg.innerHTML = `<i class="fas fa-info-circle" style="font-size:2rem; color:#3b6e9c; margin-bottom:0.5rem; display:block;"></i>Login demo (no validation)`;
+            });
+
+            // Additional small touch: keep date placeholder nice
+            // all set.
+        })();
+    </script>
+    <!-- subtle additional style for required stars etc. -->
+    <style>
+        .required-star { color: #b53b4a; }
+        input[type="text"]:placeholder-shown, input[type="email"]:placeholder-shown { color: #7b93aa; }
+        .tab-btn i { font-size: 1rem; }
+        .data-actions button i { color: #38658b; }
+        .btn-primary i { color: white; }
+        .no-data-link { background: none; border: none; color: #215a7c; cursor: pointer; font-size:0.9rem; }
+        .no-data-link:hover { text-decoration: underline !important; }
+    </style>
+</body>
+</html>
