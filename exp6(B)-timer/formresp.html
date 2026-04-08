@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profession | secure credential console</title>
+    <!-- Font Awesome 6 (free) for crisp icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 30%, #eef5fa, #d0dfe9);
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        /* main glossy container – elevated & modern */
+        .dashboard {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 3rem;
+            box-shadow: 0 35px 75px -25px rgba(15, 45, 65, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            padding: 2.5rem 2.5rem;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        /* header area with fresh gradient & typography */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .title-section h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            background: linear-gradient(135deg, #0b3b49, #1b6379);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .title-section h1 i {
+            background: #1f5e74;
+            color: white;
+            padding: 0.7rem;
+            border-radius: 2rem;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 18px -6px #0e4b5e;
+        }
+
+        .badge-pill {
+            background: #174d5e;
+            color: white;
+            padding: 0.45rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(13, 67, 87, 0.3);
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+
+        /* grid layout: form panel + table panel */
+        .grid-professional {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 950px) {
+            .grid-professional {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        /* ————— left form card ————— */
+        .form-card {
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 20px 35px -10px rgba(0,50,70,0.2), 0 1px 2px rgba(255,255,255,0.8) inset;
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .form-card h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #154857;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            border-bottom: 2px solid rgba(40,100,120,0.2);
+            padding-bottom: 1rem;
+        }
+
+        .form-card h2 i {
+            color: #1e6f8a;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 0.6rem;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #1c5e73;
+            margin-bottom: 0.3rem;
+        }
+
+        .input-group label i {
+            font-size: 0.85rem;
+            color: #277a94;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: white;
+            border: 2px solid rgba(40, 110, 140, 0.15);
+            border-radius: 1.8rem;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .input-group textarea {
+            border-radius: 1.5rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            border-color: #1a7e9c;
+            box-shadow: 0 0 0 4px rgba(26,126,156,0.2);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* button styling – sleek & consistent */
+        .btn {
+            border: none;
+            background: #1b5f77;
+            color: white;
+            font-weight: 600;
+            padding: 0.9rem 1.8rem;
+            border-radius: 3rem;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: 0.2s;
+            box-shadow: 0 10px 18px -8px #124c61;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn i { font-size: 1rem; }
+
+        .btn:hover {
+            background: #247b98;
+            transform: scale(1.02);
+            box-shadow: 0 18px 25px -12px #0f4f66;
+        }
+
+        .btn-secondary {
+            background: rgba(35, 90, 115, 0.7);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 6px 14px rgba(0,50,70,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-secondary:hover {
+            background: #2a6f8b;
+        }
+
+        .action-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1.8rem 0 0.5rem;
+        }
+
+        /* ————— right table panel ————— */
+        .table-panel {
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 2rem 1.5rem 1.8rem 1.5rem;
+            box-shadow: 0 20px 35px -10px rgba(0,50,70,0.2);
+            border: 1px solid rgba(255,255,255,0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .table-header h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #154857;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .chip-count {
+            background: #1b6d86;
+            color: white;
+            padding: 0.3rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* modern, clean table */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 1.8rem;
+            background: rgba(255,255,255,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 700px;
+        }
+
+        th {
+            text-align: left;
+            padding: 1.2rem 1rem 0.9rem 1.5rem;
+            font-weight: 600;
+            color: #1a4b5c;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 0.7rem;
+            background: rgba(215, 235, 245, 0.5);
+            border-bottom: 2px solid rgba(60, 130, 160, 0.2);
+        }
+
+        td {
+            padding: 1rem 1rem 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0,70,100,0.1);
+            color: #0b3a47;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(220, 242, 255, 0.5);
+        }
+
+        /* tiny badge inside table for service etc */
+        .service-badge {
+            background: #154f63;
+            color: white;
+            padding: 0.2rem 0.9rem;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .copy-cell {
+            text-align: center;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #1a6e8a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            transition: 0.1s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(20,120,150,0.15);
+            color: #0d536b;
+        }
+
+        .footer-clip {
+            margin-top: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.5);
+            padding: 0.7rem 1.5rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            font-size: 0.85rem;
+        }
+
+        .clip-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .clip-indicator i {
+            color: #187388;
+        }
+
+        /* last submission subtle card */
+        .submission-meta {
+            background: #ddedf5;
+            border-radius: 2rem;
+            padding: 1rem 1.5rem;
+            margin-top: 1.4rem;
+            border: 1px solid rgba(255,255,255,0.6);
+            color: #124d5e;
+            font-weight: 450;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <!-- refined heading with new title -->
+    <div class="header">
+        <div class="title-section">
+            <h1>
+                <i class="fas fa-shield-halos"></i> 
+                secure credential console
+            </h1>
+        </div>
+        <div class="badge-pill">
+            <i class="fas-regular fa-keyboard" style="margin-right: 8px;"></i> 
+            enterprise array vault
+        </div>
+    </div>
+
+    <!-- professional grid: form (left) + table (right) -->
+    <div class="grid-professional">
+        <!-- LEFT FORM (expanded fields) -->
+        <div class="form-card">
+            <h2><i class="fas fa-plus-circle"></i> new profile entry</h2>
+            <div class="field-row">
+                <div class="input-group"><label><i class="fas fa-user"></i> username</label><input type="text" id="usernameInput" placeholder="johndoe"></div>
+                <div class="input-group"><label><i class="fas fa-lock"></i> password</label><input type="text" id="passwordInput" placeholder="••••••"></div>
+                <div class="input-group"><label><i class="fas fa-globe"></i> service</label><input type="text" id="serviceInput" placeholder="example.com"></div>
+                <div class="input-group"><label><i class="fas fa-signature"></i> full name</label><input type="text" id="fullnameInput" placeholder="John Doe"></div>
+                <div class="input-group"><label><i class="fas fa-envelope"></i> email</label><input type="email" id="emailInput" placeholder="john@work.com"></div>
+                <div class="input-group"><label><i class="fas fa-phone-alt"></i> phone</label><input type="tel" id="phoneInput" placeholder="+1 555 123456"></div>
+                <div class="input-group"><label><i class="fas fa-briefcase"></i> role</label><input type="text" id="roleInput" placeholder="developer"></div>
+                <div class="input-group full-width"><label><i class="fas fa-pencil-alt"></i> notes</label><textarea id="notesInput" placeholder="additional context ..."></textarea></div>
+            </div>
+            <div class="action-group">
+                <button class="btn" id="storeBtn"><i class="fas fa-database"></i> store credentials</button>
+                <button class="btn btn-secondary" id="copyAllBtn"><i class="fas fa-copy"></i> copy all</button>
+                <button class="btn btn-secondary" id="downloadCsvBtn"><i class="fas fa-download"></i> csv</button>
+            </div>
+            <div style="margin-top: 1.2rem; color:#1b5f73; font-size:0.8rem; display:flex; gap:1rem;">
+                <span><i class="fas-regular fa-circle-check"></i> for‑loop array print</span>
+                <span><i class="fas fa-clipboard"></i> navigator.clipboard</span>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: TABLE (professional display of stored credentials) -->
+        <div class="table-panel">
+            <div class="table-header">
+                <h2><i class="fas fa-table-list"></i> stored profiles · array view</h2>
+                <span class="chip-count" id="counterBadge">0 entries</span>
+            </div>
+            <!-- table presentation -->
+            <div class="table-wrapper">
+                <table id="credentialTable">
+                    <thead>
+                        <tr>
+                            <th>username</th>
+                            <th>password</th>
+                            <th>service</th>
+                            <th>full name</th>
+                            <th>email</th>
+                            <th>role</th>
+                            <th style="text-align:center;">copy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- filled dynamically via for loop -->
+                        <tr><td colspan="7" style="text-align:center; padding:2.5rem;">— no entries yet, use the form —</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- last submission detail (clean) -->
+            <div class="submission-meta" id="lastSubmissionDetail">
+                <i class="fas fa-clock" style="margin-right: 8px;"></i> last entry: —
+            </div>
+
+            <!-- footer with clipboard test & status -->
+            <div class="footer-clip">
+                <div class="clip-indicator">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span id="clipboardStatus">ready</span>
+                </div>
+                <button class="copy-btn" id="testCopyBtn" style="background:transparent;"><i class="fas fa-flask"></i> test clipboard</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- array holding all entries (8 fields) ----------
+        let credentialsArray = [];
+
+        // DOM elements
+        const usernameInp = document.getElementById('usernameInput');
+        const passwordInp = document.getElementById('passwordInput');
+        const serviceInp = document.getElementById('serviceInput');
+        const fullnameInp = document.getElementById('fullnameInput');
+        const emailInp = document.getElementById('emailInput');
+        const phoneInp = document.getElementById('phoneInput');
+        const roleInp = document.getElementById('roleInput');
+        const notesInp = document.getElementById('notesInput');
+
+        const storeBtn = document.getElementById('storeBtn');
+        const tableBody = document.getElementById('tableBody');
+        const counterBadge = document.getElementById('counterBadge');
+        const lastSubmissionSpan = document.getElementById('lastSubmissionDetail');
+        const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+        const copyAllBtn = document.getElementById('copyAllBtn');
+        const testCopyBtn = document.getElementById('testCopyBtn');
+        const clipboardStatus = document.getElementById('clipboardStatus');
+
+        // helper escape (minimal for table, but safe)
+        function escapeHtml(unsafe) {
+            if (!unsafe) return unsafe;
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // render TABLE using FOR LOOP over array
+        function renderTable() {
+            const count = credentialsArray.length;
+            counterBadge.textContent = count + (count === 1 ? ' entry' : ' entries');
+
+            if (count === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2.5rem; color:#456f7f;">— no credentials stored —</td></tr>`;
+                return;
+            }
+
+            let htmlRows = '';
+            // ************ FOR LOOP (explicit) to print details as table rows ************
+            for (let i = 0; i < credentialsArray.length; i++) {
+                const c = credentialsArray[i];
+                const username = escapeHtml(c.username) || '—';
+                const passwordMask = c.password ? '•'.repeat(Math.min(6, c.password.length)) : '••';
+                const service = escapeHtml(c.service) || '—';
+                const fullname = escapeHtml(c.fullname) || '—';
+                const email = escapeHtml(c.email) || '—';
+                const role = escapeHtml(c.role) || '—';
+
+                htmlRows += `<tr>
+                    <td><span style="font-weight:500;">${username}</span></td>
+                    <td><span style="font-family: monospace; opacity:0.75;">${passwordMask}</span></td>
+                    <td><span class="service-badge">${service}</span></td>
+                    <td>${fullname}</td>
+                    <td>${email}</td>
+                    <td>${role}</td>
+                    <td class="copy-cell">
+                        <button class="copy-btn" data-copy-index="${i}" title="copy full record"><i class="fas fa-copy"></i></button>
+                    </td>
+                </tr>`;
+            }
+            tableBody.innerHTML = htmlRows;
+
+            // attach copy event to each copy button in table
+            document.querySelectorAll('.copy-btn[data-copy-index]').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const index = this.getAttribute('data-copy-index');
+                    if (index !== null && credentialsArray[index]) {
+                        const c = credentialsArray[index];
+                        const text = `username: ${c.username}\npassword: ${c.password}\nservice: ${c.service}\nfull name: ${c.fullname}\nemail: ${c.email}\nphone: ${c.phone}\nrole: ${c.role}\nnotes: ${c.notes}`;
+                        copyToClipboard(text, '✅ record copied');
+                    }
+                });
+            });
+        }
+
+        // update last submission detail
+        function updateLastSubmission() {
+            if (credentialsArray.length === 0) {
+                lastSubmissionSpan.innerHTML = `<i class="fas fa-clock" style="margin-right: 8px;"></i> last entry: —`;
+                return;
+            }
+            const last = credentialsArray[credentialsArray.length - 1];
+            const summary = `${escapeHtml(last.username) || '?'}  |  ${escapeHtml(last.email) || 'no email'}  |  ${escapeHtml(last.role) || '—'}`;
+            lastSubmissionSpan.innerHTML = `<i class="fas fa-clock" style="margin-right: 8px;"></i> last entry: ${summary}`;
+        }
+
+        // clipboard function using navigator.clipboard
+        function copyToClipboard(text, successMsg = 'copied') {
+            if (!navigator.clipboard) {
+                clipboardStatus.innerHTML = '❌ unavailable';
+                return;
+            }
+            navigator.clipboard.writeText(text).then(() => {
+                clipboardStatus.innerHTML = `✅ ${successMsg}`;
+                setTimeout(() => {
+                    clipboardStatus.innerHTML = '📋 ready';
+                }, 2500);
+            }).catch(() => {
+                clipboardStatus.innerHTML = '❌ failed';
+            });
+        }
+
+        // store all fields into array
+        function storeCredentials() {
+            const username = usernameInp.value.trim() || '(no username)';
+            const password = passwordInp.value || '(no password)';
+            const service = serviceInp.value.trim() || '(no service)';
+            const fullname = fullnameInp.value.trim() || '(not given)';
+            const email = emailInp.value.trim() || '(not given)';
+            const phone = phoneInp.value.trim() || '(not given)';
+            const role = roleInp.value.trim() || '(not given)';
+            const notes = notesInp.value.trim() || '(no notes)';
+
+            credentialsArray.push({
+                username, password, service, fullname, email, phone, role, notes
+            });
+
+            // clear inputs
+            usernameInp.value = ''; passwordInp.value = ''; serviceInp.value = '';
+            fullnameInp.value = ''; emailInp.value = ''; phoneInp.value = '';
+            roleInp.value = ''; notesInp.value = '';
+
+            renderTable();
+            updateLastSubmission();
+            usernameInp.focus();
+        }
+
+        storeBtn.addEventListener('click', storeCredentials);
+
+        // Enter key support
+        [usernameInp, passwordInp, serviceInp, fullnameInp, emailInp, phoneInp, roleInp, notesInp].forEach(inp => {
+            inp.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); storeBtn.click(); } });
+        });
+
+        // download CSV (all 8 columns)
+        function downloadCsv() {
+            if (credentialsArray.length === 0) { alert('no data'); return; }
+            let csv = "username,password,service,fullname,email,phone,role,notes\n";
+            for (let c of credentialsArray) {
+                const esc = (val) => `"${String(val || '').replace(/"/g, '""')}"`;
+                csv += esc(c.username) + ',' + esc(c.password) + ',' + esc(c.service) + ',' +
+                       esc(c.fullname) + ',' + esc(c.email) + ',' + esc(c.phone) + ',' +
+                       esc(c.role) + ',' + esc(c.notes) + '\n';
+            }
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'vault_export.csv';
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+        downloadCsvBtn.addEventListener('click', downloadCsv);
+
+        // copy all as formatted text (for loop)
+        copyAllBtn.addEventListener('click', () => {
+            if (!credentialsArray.length) return alert('array empty');
+            let lines = ['===== CREDENTIAL VAULT ====='];
+            for (let i=0; i<credentialsArray.length; i++) {
+                const c = credentialsArray[i];
+                lines.push(`${i+1}. ${c.username} : ${c.password} @ ${c.service} | ${c.fullname} | ${c.email} | ${c.phone} | ${c.role} | notes: ${c.notes}`);
+            }
+            copyToClipboard(lines.join('\n'), '✅ all copied');
+        });
+
+        testCopyBtn.addEventListener('click', () => copyToClipboard('professional vault test', '📋 test ok'));
+
+        // seed sample data for demonstration (professional & clean)
+        credentialsArray.push(
+            { username:'emily.c', password:'p@ssw0rd!', service:'aws-console', fullname:'Emily Carter', email:'emily@company.com', phone:'+1 415 555 0199', role:'cloud architect', notes:'MFA enabled' },
+            { username:'mprior', password:'Summer2024', service:'github', fullname:'Michael Prior', email:'mike.p@dev.io', phone:'+44 20 7946 0138', role:'lead dev', notes:'SSH key' },
+            { username:'jansen', password:'qwerty123', service:'okta', fullname:'Julia Jansen', email:'julia@identity.com', phone:'+49 170 123456', role:'security', notes:'backup codes' }
+        );
+        renderTable();
+        updateLastSubmission();
+    })();
+</script>
+</body>
+</html>

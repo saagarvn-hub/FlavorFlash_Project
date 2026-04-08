@@ -1,235 +1,665 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Web Technology Lab Exercises - Saagar V N</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Technology Lab | Saagar V N</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #1a2b4c 0%, #2c3e50 100%);
+        * {
             margin: 0;
-            padding: 40px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* LIGHT THEME */
+        body.light {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+
+        body.light::before {
+            background: radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px);
+        }
+
+        body.light .card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        body.light .card h2 {
+            color: #1a2b4c;
+        }
+
+        body.light .card p {
+            color: #555;
+        }
+
+        body.light .proof-section {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+        }
+
+        body.light .proof-section h4 {
+            color: #667eea;
+        }
+
+        body.light .stat-card {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+
+        body.light .stat-card .stat-number {
+            color: #667eea;
+        }
+
+        body.light .stat-card .stat-label {
+            color: #666;
+        }
+
+        body.light .section-title h2 {
             color: #333;
         }
-        
+
+        body.light .student-info {
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #333;
+        }
+
+        body.light .student-info a {
+            color: #667eea;
+        }
+
+        body.light .btn-outline {
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        body.light .btn-outline:hover {
+            background: #e0e0e0;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
         }
-        
-        h1 {
+
+        /* Header */
+        .header {
             text-align: center;
-            color: white;
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
         }
-        
+
+        .header h1 {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a8b2ff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        body.light .header h1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .subtitle {
-            text-align: center;
-            color: #f0f0f0;
-            font-size: 18px;
-            margin-bottom: 50px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 20px;
+            color: rgba(255,255,255,0.7);
         }
-        
+
+        body.light .subtitle {
+            color: #666;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        body.light .theme-toggle {
+            background: rgba(0,0,0,0.1);
+            color: #333;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #a8b2ff;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            margin: 60px 0 30px 0;
+            text-align: center;
+        }
+
+        .section-title h2 {
+            display: inline-block;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .section-title .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        /* Exercises Grid */
         .exercises {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
             gap: 30px;
         }
-        
+
+        /* Card Styles */
         .card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-            border-top: 5px solid #1a2b4c;
-            border-bottom: 5px solid #1a2b4c;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.4s;
         }
-        
+
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
         }
-        
-        .card h2 {
-            color: #1a2b4c;
-            margin-top: 0;
-            border-bottom: 2px solid #1a2b4c;
-            padding-bottom: 10px;
-            font-size: 28px;
-        }
-        
-        .card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        
-        .links {
+
+        .card-header {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        
-        .btn {
-            text-decoration: none;
-            color: white;
-            background-color: #1a2b4c;
-            padding: 12px 20px;
-            border-radius: 8px;
+
+        .card h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .card-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-html { background: #e44d26; color: #fff; }
+        .badge-css { background: #264de4; color: #fff; }
+        .badge-js { background: #f7df1e; color: #333; }
+        .badge-php { background: #777BB4; color: #fff; }
+        .badge-sql { background: #00758f; color: #fff; }
+
+        .card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        /* Proof Section */
+        .proof-section {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
             text-align: center;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: 2px solid #1a2b4c;
         }
-        
-        .btn:hover {
-            background-color: white;
-            color: #1a2b4c;
+
+        .proof-section h4 {
+            font-size: 12px;
+            color: #a8b2ff;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .proof-section img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .proof-section img:hover {
             transform: scale(1.02);
         }
-        
-        .btn-html {
-            background-color: #e44d26;
-            border-color: #e44d26;
-        }
-        
-        .btn-html:hover {
-            background-color: white;
-            color: #e44d26;
-        }
-        
-        .btn-css {
-            background-color: #264de4;
-            border-color: #264de4;
-        }
-        
-        .btn-css:hover {
-            background-color: white;
-            color: #264de4;
-        }
-        
-        .badge {
-            display: inline-block;
-            background-color: #ffc107;
-            color: #333;
-            padding: 5px 10px;
-            border-radius: 20px;
+
+        .proof-placeholder {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            color: rgba(255,255,255,0.5);
             font-size: 12px;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        
-        .student-info {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 40px;
             text-align: center;
-            font-size: 16px;
         }
-        
-        .student-info a {
-            color: #ffc107;
+
+        .links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .btn {
             text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 12px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        
-        .student-info a:hover {
-            text-decoration: underline;
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* PHP Section */
+        .php-section {
+            background: linear-gradient(135deg, rgba(119,123,180,0.15), rgba(102,126,234,0.1));
+            border: 1px solid rgba(119,123,180,0.3);
+        }
+
+        /* Footer */
+        .student-info {
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .student-info p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 13px;
+        }
+
+        .social-links a:hover {
+            color: #a8b2ff;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        @media (max-width: 850px) {
+            .container { padding: 20px; }
+            .header h1 { font-size: 36px; }
+            .exercises { grid-template-columns: 1fr; }
+            .theme-toggle { padding: 8px 16px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
 
+<button class="theme-toggle" onclick="toggleTheme()">🌓 Light Mode</button>
+
 <div class="container">
-    <h1>🌐 Web Technology Lab Exercises</h1>
-    <div class="subtitle">
-        Saagar V N | B.Tech Computer Science | Jain University
+    <!-- Header -->
+    <div class="header">
+        <h1>Web Technology Lab</h1>
+        <div class="subtitle">Saagar V N | B.Tech Computer Science | Jain University</div>
     </div>
-    
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-card"><div class="stat-number">12+</div><div class="stat-label">Experiments</div></div>
+        <div class="stat-card"><div class="stat-number">HTML/CSS/JS</div><div class="stat-label">Frontend</div></div>
+        <div class="stat-card"><div class="stat-number">PHP/MySQL</div><div class="stat-label">Backend</div></div>
+    </div>
+
+    <!-- HTML Experiments Section -->
+    <div class="section-title">
+        <h2>📄 HTML Experiments</h2>
+        <div class="divider"></div>
+    </div>
+
     <div class="exercises">
-        <!-- Exercise 1 Card -->
+        <!-- Exercise 1 -->
         <div class="card">
-            <h2>Exercise 1 <span class="badge">HTML Only</span></h2>
+            <div class="card-header">
+                <h2>📄 Exercise 1</h2>
+                <span class="card-badge badge-html">HTML Only</span>
+            </div>
             <p>Personal website with minimum 4 web pages using basic HTML tags. Includes Home, About, Skills, Projects, and Contact sections.</p>
             <div class="links">
-                <a href="exp1-personalweb no css/personalweb.HTML" class="btn btn-html" target="_blank">🔗 View Personal Website (No CSS)</a>
+                <a href="exp1-personalweb no css/personalweb.HTML" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View</a>
             </div>
         </div>
-        
-        <!-- Exercise 2 Card -->
+
+        <!-- Exercise 2 -->
         <div class="card">
-            <h2>Exercise 2 <span class="badge">HTML Only</span></h2>
+            <div class="card-header">
+                <h2>🛒 Exercise 2</h2>
+                <span class="card-badge badge-html">HTML Only</span>
+            </div>
             <p>Static E-commerce website using Advanced HTML tags. Features Home, Menu, Cart, Wishlist, Order, and Help pages.</p>
             <div class="links">
-                <a href="exp2-e-commerce no css/e-commerce.HTML" class="btn btn-html" target="_blank">🛒 View E-Commerce (No CSS)</a>
-            </div>
-        </div>
-        
-        <!-- Exercise 3 Card -->
-        <div class="card">
-            <h2>Exercise 3 <span class="badge">With CSS</span></h2>
-            <p>Enhanced personal website with Inline, Internal, and External CSS. Modern design with dark blue theme and circular profile image.</p>
-            <div class="links">
-                <a href="exp3-personalweb/Personalweb.HTML" class="btn btn-css" target="_blank">🎨 View Personal Website (With CSS)</a>
-            </div>
-        </div>
-        
-        <!-- Exercise 4 Card -->
-        <div class="card">
-            <h2>Exercise 4 <span class="badge">With CSS</span></h2>
-            <p>Enhanced E-commerce website with Inline, Internal, and External CSS. Beautiful green and yellow theme with interactive elements.</p>
-            <div class="links">
-                <a href="exp4-e-commerce/E-commerce.HTML" class="btn btn-css" target="_blank">🎨 View E-Commerce (With CSS)</a>
-            </div>
-        </div>
-        <!-- Exercise 5 Card -->
-        <div class="card">
-            <h2>Exercise 5 <span class="badge">With CSS</span></h2>
-            <p>Simple Calculator</p>
-            <div class="links">
-                <a href="exp5-calculator/simplecal.html" class="btn btn-css" target="_blank">🎨 View simple calculator</a>
-            </div>
-        </div>
-        <!-- Exercise 5 Card -->
-        <div class="card">
-            <h2>Exercise 5 <span class="badge">With CSS</span></h2>
-            <p>Complex Calculator</p>
-            <div class="links">
-                <a href="exp5-calculator/complexcal.html" class="btn btn-css" target="_blank">🎨 View complec calculator</a>
-            </div>
-        </div>
-          <!-- Exercise 6 Card -->
-        <div class="card">
-            <h2>Exercise 6 <span class="badge">With CSS,JavaScript</span></h2>
-            <p>Form</p>
-            <div class="links">
-                <a href="exp6-form javascript/form.html" class="btn btn-css" target="_blank">🎨 View Form</a>
-            </div>
-        </div>
-               <!-- Exercise 7 Card -->
-        <div class="card">
-            <h2>Exercise 7 <span class="badge">With CSS,JavaScript</span></h2>
-            <p>Form data</p>
-            <div class="links">
-                <a href="exp7-timer/formresp.html" class="btn btn-css" target="_blank">🎨 View Form</a>
+                <a href="exp2-e-commerce no css/e-commerce.HTML" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View</a>
             </div>
         </div>
     </div>
-    
+
+    <!-- CSS Experiments Section -->
+    <div class="section-title">
+        <h2>🎨 CSS Experiments</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="exercises">
+        <!-- Exercise 3 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🎨 Exercise 3</h2>
+                <span class="card-badge badge-css">With CSS</span>
+            </div>
+            <p>Enhanced personal website with Inline, Internal, and External CSS. Modern design with dark blue theme.</p>
+            <div class="links">
+                <a href="exp3-personalweb/Personalweb.HTML" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View</a>
+            </div>
+        </div>
+
+        <!-- Exercise 4 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🎨 Exercise 4</h2>
+                <span class="card-badge badge-css">With CSS</span>
+            </div>
+            <p>Enhanced E-commerce website with Inline, Internal, and External CSS. Beautiful green and yellow theme.</p>
+            <div class="links">
+                <a href="exp4-e-commerce/E-commerce.HTML" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Experiments Section -->
+    <div class="section-title">
+        <h2>⚡ JavaScript Experiments</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="exercises">
+        <!-- Exercise 5 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🧮 Exercise 5</h2>
+                <span class="card-badge badge-js">JavaScript</span>
+            </div>
+            <p>Simple & Complex Calculator - Basic arithmetic and scientific operations using HTML, CSS, and JavaScript.</p>
+            <div class="links">
+                <a href="exp5-calculator/simplecal.html" class="btn btn-primary" target="_blank"><i class="fas fa-calculator"></i> Simple</a>
+                <a href="exp5-calculator/complexcal.html" class="btn btn-outline" target="_blank"><i class="fas fa-chart-line"></i> Complex</a>
+            </div>
+        </div>
+
+        <!-- Exercise 6 -->
+        <div class="card">
+            <div class="card-header">
+                <h2>📝 Exercise 6</h2>
+                <span class="card-badge badge-js">JavaScript</span>
+            </div>
+            <p>Form with JavaScript validation - Client-side form validation with real-time error messages.</p>
+            <div class="links">
+                <a href="exp6-form javascript/form.html" class="btn btn-primary" target="_blank"><i class="fas fa-check-circle"></i> View Form</a>
+            </div>
+        </div>
+
+        <!-- Exercise 6(B) - Timer Form (formerly exp7-timer) -->
+        <div class="card">
+            <div class="card-header">
+                <h2>⏱️ Exercise 6(B)</h2>
+                <span class="card-badge badge-js">JavaScript</span>
+            </div>
+            <p>Timer Form - Interactive form with countdown timer. User must submit within time limit or form gets disabled.</p>
+            <div class="links">
+                <a href="exp6(B)-timer/formresp.html" class="btn btn-primary" target="_blank"><i class="fas fa-hourglass-half"></i> View Timer Form</a>
+            </div>
+        </div>
+
+        <!-- Exercise 7 - Market Management -->
+        <div class="card">
+            <div class="card-header">
+                <h2>🏪 Exercise 7</h2>
+                <span class="card-badge badge-js">JavaScript</span>
+            </div>
+            <p>Market Products Management - Event handling: Search, Sort, Filter, Download CSV, and real-time market value calculation.</p>
+            <div class="links">
+                <a href="exp7-market/index.html" class="btn btn-primary" target="_blank"><i class="fas fa-store"></i> View Market</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHP & MySQL Experiments Section -->
+    <div class="section-title">
+        <h2>🐘 PHP & MySQL Experiments</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="exercises">
+        <!-- Experiment 8 -->
+        <div class="card php-section">
+            <div class="card-header">
+                <h2>🐘 Experiment 8</h2>
+                <span class="card-badge badge-php">PHP</span>
+            </div>
+            <p>PHP Form Handling and Validation for Exercise 1 & 2. Server-side validation, data sanitization, error messages, and file storage.</p>
+            
+            <div class="proof-section">
+                <h4>📸 Proof 1: PHP Validation Code</h4>
+                <img src="exp8-php-form-handling/proof1.png" alt="PHP Validation Code" onerror="this.src='exp8-php-form-handling/proof1.jpg'; this.onerror='this.style.display=\"none\"; this.nextSibling.style.display=\"block\";'">
+                <div style="display: none;" class="proof-placeholder">⚠️ Proof image not found</div>
+            </div>
+            
+            <div class="proof-section">
+                <h4>📸 Proof 2: Working Form Output</h4>
+                <img src="exp8-php-form-handling/proof2.png" alt="Working Form" onerror="this.src='exp8-php-form-handling/proof2.jpg'; this.onerror='this.style.display=\"none\"; this.nextSibling.style.display=\"block\";'">
+                <div style="display: none;" class="proof-placeholder">⚠️ Proof image not found</div>
+            </div>
+            
+            <div class="links">
+                <a href="http://localhost/webtechnologies/FlavorFlash_Project%20-%20Copy/exp8-php-form-handling/index.php" class="btn btn-primary" target="_blank"><i class="fab fa-php"></i> View Experiment 8</a>
+            </div>
+        </div>
+
+        <!-- Experiment 9 -->
+        <div class="card php-section">
+            <div class="card-header">
+                <h2>📦 Experiment 9</h2>
+                <span class="card-badge badge-php">PHP + MySQL</span>
+            </div>
+            <p>Create, Store, Retrieve, and Display product details using PHP and MySQL. Complete CRUD operations with image upload.</p>
+            
+            <div class="proof-section">
+                <h4>📸 Proof 1: Database Structure</h4>
+                <img src="exp9-product-crud/proof1.png" alt="Database Proof" onerror="this.style.display='none'; this.nextSibling.style.display='block';">
+                <div style="display: none;" class="proof-placeholder">⚠️ proof1.png not found</div>
+            </div>
+            <div class="proof-section">
+                <h4>📸 Proof 2: Working Application</h4>
+                <img src="exp9-product-crud/proof2.png" alt="Application Proof" onerror="this.style.display='none'; this.nextSibling.style.display='block';">
+                <div style="display: none;" class="proof-placeholder">⚠️ proof2.png not found</div>
+            </div>
+            
+            <div class="links">
+                <a href="http://localhost/webtechnologies/FlavorFlash_Project%20-%20Copy/exp9-product-crud/index.php" class="btn btn-primary" target="_blank"><i class="fas fa-database"></i> View Experiment 9</a>
+            </div>
+        </div>
+
+        <!-- Experiment 10 -->
+        <div class="card php-section">
+            <div class="card-header">
+                <h2>🔐 Experiment 10</h2>
+                <span class="card-badge badge-php">PHP + MySQL</span>
+            </div>
+            <p>Sessions and Cookies to store information across multiple pages. User registration, login, remember me, and persistent shopping cart.</p>
+            
+            <div class="proof-section">
+                <h4>📸 Proof: Sessions & Cookies Working</h4>
+                <img src="exp10-sessions-cookies/proof.jpg" alt="Session & Cookie Proof" onerror="this.style.display='none'; this.nextSibling.style.display='block';">
+                <div style="display: none;" class="proof-placeholder">⚠️ proof.jpg not found</div>
+            </div>
+            
+            <div class="links">
+                <a href="http://localhost/webtechnologies/FlavorFlash_Project%20-%20Copy/exp10-sessions-cookies/index.php" class="btn btn-primary" target="_blank"><i class="fas fa-lock"></i> View Experiment 10</a>
+                <a href="http://localhost/webtechnologies/FlavorFlash_Project%20-%20Copy/exp10-sessions-cookies/dashboard.php" class="btn btn-outline" target="_blank"><i class="fas fa-chart-line"></i> Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <div class="student-info">
-        📧 <a href="mailto:saagarvnjain@gmail.com">saagarvnjain@gmail.com</a> | 
-        📱 +91 6362476630 | 
-        🔗 <a href="https://linkedin.com/in/saagar-v-n-11baa03a9" target="_blank">LinkedIn</a> | 
-        💻 <a href="https://github.com/saagarvn-hub" target="_blank">GitHub</a>
-        <br><br>
-        <font size="2">© 2026 All Rights Reserved</font>
+        <p><i class="fas fa-graduation-cap"></i> Web Technology Lab - Complete Portfolio</p>
+        <div class="social-links">
+            <a href="mailto:saagarvnjain@gmail.com"><i class="fas fa-envelope"></i> saagarvnjain@gmail.com</a>
+            <a href="tel:+916362476630"><i class="fas fa-phone"></i> +91 6362476630</a>
+            <a href="https://linkedin.com/in/saagar-v-n-11baa03a9" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/saagarvn-hub" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+        <div class="copyright">
+            © 2026 All Rights Reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by Saagar V N
+        </div>
     </div>
 </div>
+
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('light');
+        const btn = document.querySelector('.theme-toggle');
+        if(document.body.classList.contains('light')) {
+            btn.innerHTML = '🌙 Dark Mode';
+        } else {
+            btn.innerHTML = '🌓 Light Mode';
+        }
+    }
+</script>
 
 </body>
 </html>
